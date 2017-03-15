@@ -11,5 +11,23 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button (click)="login()">Login</button>
+  <form (ngSubmit)="submitBudget()">
+      <ion-item>
+        <ion-label>Month</ion-label>
+        <ion-datetime displayFormat="MMMM" [(ngModel)]="data.month" name="date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="data.date" name="date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Value</ion-label>
+         <ion-input type="number" [(ngModel)]="data.total" name="total"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Comment</ion-label>
+         <ion-input type="text" [(ngModel)]="data.comment" name="comment"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Create</button>
+  </form>
 </ion-content>

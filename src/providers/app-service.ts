@@ -1,32 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import {Subject} from 'rxjs/Rx';
-declare var firebase: any;
-
-interface UserDetails{
-    name?: string,
-    email?: string,
-    role?: string,
-    uid?: string
-}
+import {Subject, Observable} from 'rxjs/Rx';
+import { NavController } from 'ionic-angular';
+import { BillPage } from '../pages/bill/bill';
+import { AngularFire } from 'angularfire2';
+;
+import { AlertController } from 'ionic-angular';
 
 @Injectable()
 export class AppService {
 
-  public isLoggedIn: boolean = false;
-  public userDetails: UserDetails = <UserDetails>{};//current user details.
-  private loginObservable: Subject<boolean> = new Subject<boolean>();
+  constructor(public http: Http, private alertCtrl: AlertController, private af: AngularFire) {
 
-  constructor(public http: Http) {
   }
 
-    public login(){
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithRedirect(provider);
-      return firebase.auth().getRedirectResult().then(function(result) {
-              }).catch(function(error) {
-                return false
-              });
-    }
-
+  addBudget(data){
+     this.af.database.object('/months/january/'+data.date).set({'total': data.total}).then((data)=>{
+          let alert = this.alertCtrl.create({
+                title: 'Low battery',
+                subTitle: '10% of battery remaining',
+                buttons: ['Dismiss']
+            });
+            alert.present();
+      })
+  }
 }

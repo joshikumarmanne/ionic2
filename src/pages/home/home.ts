@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 import { AppService } from '../../providers/app-service';
+import { BillPage } from '../bill/bill';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'page-home',
@@ -9,14 +11,14 @@ import { AppService } from '../../providers/app-service';
   providers: [AppService]
 })
 export class HomePage {
-
-  constructor(public navCtrl: NavController,   private service: AppService) {
+  
+  data = {}
+  constructor(public navCtrl: NavController,  private service: AppService, private af: AngularFire) {
 
   }
-  login(){
-    this.service.login().then((data)=>{
-      
-    })
+
+  submitBudget(){
+    this.service.addBudget(this.data)
   }
 
 }

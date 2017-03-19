@@ -3,23 +3,27 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { BillPage } from '../pages/bill/bill';
+import { UsersPage } from '../pages/users/users';
+import { ReportPage } from '../pages/report/report';
 import { AppService } from '../providers/app-service';
 import { AngularFireModule } from 'angularfire2';
 
 
 export const firebaseConfig = {
-      apiKey: "AIzaSyDrT61-zg-FuonOa4sDbChuRXk8d2mx-p8",
-      authDomain: "fir-89d50.firebaseapp.com",
-      databaseURL: "https://fir-89d50.firebaseio.com",
-      storageBucket: "fir-89d50.appspot.com",
-      messagingSenderId: "936509313976"
+      apiKey: "AIzaSyCpnF9Nq20yJrqbtpPfLkmNu-_LDB7QVQo",
+    authDomain: "ionic-b5106.firebaseapp.com",
+    databaseURL: "https://ionic-b5106.firebaseio.com",
+    storageBucket: "ionic-b5106.appspot.com",
+    messagingSenderId: "1038947979909"
 };
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    BillPage
+    BillPage,
+    UsersPage,
+    ReportPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -29,7 +33,9 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-    BillPage
+    BillPage,
+    UsersPage,
+    ReportPage
   ],
   providers: [AppService, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -1,0 +1,47 @@
+<!--
+  Generated template for the Report page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Report</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="generateReport()">
+      <ion-item>
+        <ion-label>Select User</ion-label>
+        <ion-select [(ngModel)]="selectedUsers" multiple="true" name="example">
+          <ion-option *ngFor="let user of users" value="{{user.$key}}">{{user.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Month</ion-label>
+        <ion-select [(ngModel)]="data.month" name="month">
+          <ion-option *ngFor="let month of service.months" value="{{month}}">{{month}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <button ion-button type="submit" block>Generate</button>
+  </form>
+  <h1 *ngIf="reports">Report</h1>
+  <table *ngIf="reports" border="1" style="width:100%">
+    <tr>
+      <th>Date</th>
+      <th>Total</th>
+      <th>Dividend</th>
+      <th>Comment</th>
+    </tr>
+    <tr align="center" *ngFor = "let report of reports">
+      <td>{{report.date}}</td>
+      <td>{{report.total}}</td>
+      <td>{{report.dividend}}</td>
+      <td>{{report.comment}}</td>
+    </tr>
+  </table>
+</ion-content>

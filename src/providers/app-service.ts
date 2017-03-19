@@ -1,27 +1,58 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import {Subject, Observable} from 'rxjs/Rx';
-import { NavController } from 'ionic-angular';
-import { BillPage } from '../pages/bill/bill';
 import { AngularFire } from 'angularfire2';
-;
 import { AlertController } from 'ionic-angular';
 
 @Injectable()
 export class AppService {
+
+  
+  months = ['January', 'Febraury', 'March', 'April']
 
   constructor(public http: Http, private alertCtrl: AlertController, private af: AngularFire) {
 
   }
 
   addBudget(data){
-     this.af.database.object('/months/january/'+data.date).set({'total': data.total}).then((data)=>{
+     this.af.database.object('/months/'+data.month+'/'+data.date).set({'total': data.total, 'users': data.users.length, 'comment': data.comment}).then((object)=>{
+          
+          let count = data.total/data.users.length;
+          for (let user of data.users){
+            this.af.database.object('/usage/'+ user +'/'+ data.month +'/'+ data.date).set({'total': data.total, 'dividend': count, 'comment': data.comment}).then((data)=>{
+
+            })
+          }
+
           let alert = this.alertCtrl.create({
-                title: 'Low battery',
-                subTitle: '10% of battery remaining',
+                title: 'Success',
+                subTitle: 'Successfully Created',
+                buttons: ['ok']
+            });
+            alert.present();
+          
+      })
+  }
+
+  getUsers(){
+     return this.af.database.list('/users')
+  }
+
+  postUser(user){
+    this.af.database.list('/users').push({'name': user.name}).then((data)=>{
+      let alert = this.alertCtrl.create({
+                title: 'success',
+                subTitle: 'Successfully Created',
                 buttons: ['Dismiss']
             });
             alert.present();
-      })
+    })
+  }
+
+  generateReport(data){
+    return this.af.database.object('/usage/'+ data.user+ '/'+ data.month).subscribe((data)=>{
+      console.log(data)
+      return data;
+    })
+
   }
 }

@@ -14,13 +14,53 @@
 
 
 <ion-content padding>
+  <!--<ion-tabs color="primary" tabsPlacement="top">
+    <ion-tab [root]="userFormPage" tabTitle="Create User" tabIcon="book"></ion-tab>
+    <ion-tab [root]="userAmountPage" tabTitle="Amount" tabIcon="people"></ion-tab>
+  </ion-tabs>-->
 
-  <form (ngSubmit)="submitUser()">
+  <div padding>
+  <ion-segment [(ngModel)]="userSelect">
+    <ion-segment-button value="form">
+      User Registration
+    </ion-segment-button>
+    <ion-segment-button value="amount">
+      Month Amount
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="userSelect">
+  <ion-list *ngSwitchCase="'form'">
+    <form (ngSubmit)="submitUser()">
       <ion-item>
         <ion-label>User</ion-label>
-         <ion-input type="text" [(ngModel)]="user.name" name="name"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.name" name="name"></ion-input>
       </ion-item>
       <button ion-button type="submit" block>Create</button>
-  </form>
+    </form>
+  </ion-list>
 
+  <ion-list *ngSwitchCase="'amount'">
+    <form (ngSubmit)="submitUserAmount()">      
+      <ion-item>
+        <ion-label>Users</ion-label>
+        <ion-select [(ngModel)]="selectedUsers" multiple="true" name="example">
+          <ion-option *ngFor="let user of users" value="{{user.$key}}">{{user.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Month</ion-label>
+        <ion-select [(ngModel)]="data.month" name="month">
+          <ion-option *ngFor="let month of service.months" value="{{month}}">{{month}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Value</ion-label>
+         <ion-input type="number" [(ngModel)]="data.amount" name="amount"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Submit</button>
+    </form>
+  </ion-list>
+</div>
 </ion-content>

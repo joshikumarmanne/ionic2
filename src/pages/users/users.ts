@@ -15,12 +15,28 @@ import { AngularFire } from 'angularfire2';
 })
 export class UsersPage {
   user = {}
+  data = { }
+  users:any;
+  userSelect: any;
+  selectedUsers:any
   constructor(private service: AppService, private af: AngularFire) {
-
+    this.userSelect = 'form';
+      this.service.getUsers().subscribe((data)=>{
+        this.users = Object.keys(data).map((key) => {
+                      let tempTask = data[key]
+                      tempTask.id  = key;                        
+                      return tempTask
+      });
+      
+    })
   }
 
   submitUser(){
     this.service.postUser(this.user)
   }
 
+  submitUserAmount(){
+    this.data['user'] = this.selectedUsers[0]
+    this.service.postUserAmount(this.data);
+  }
 }

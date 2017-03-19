@@ -21,6 +21,7 @@ export class ReportPage {
   data = {};
   reports:any;
   sum:any = 0;
+  amount:any
 
   constructor(private service: AppService, private af: AngularFire, private loadingCtrl: LoadingController) {
     this.service.getUsers().subscribe((data)=>{
@@ -42,12 +43,12 @@ export class ReportPage {
     this.data['users'] = this.selectedUsers[0]
     this.data['user'] = this.selectedUser;
     this.af.database.object('/usage/'+ this.data['users']+ '/'+ this.data['month']).subscribe((res)=>{
-      console.log(res)
       if (res){
-        this.reports = Object.keys(res).map((key)=>{
-          let usage = res[key]
+        this.amount = res.amount;
+        this.reports = Object.keys(res.dates).map((key)=>{
+          let usage = res.dates[key]
           usage.date = key
-          this.sum += parseFloat(res[key]['dividend'])
+          this.sum += parseFloat(res.dates[key]['dividend'])
           return usage  
         });
         loading.dismiss();

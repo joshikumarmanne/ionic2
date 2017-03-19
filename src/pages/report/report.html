@@ -43,5 +43,20 @@
       <td>{{report.dividend}}</td>
       <td>{{report.comment}}</td>
     </tr>
-  </table>
+  </table><br>
+  <h1 *ngIf="reports">Difference</h1>
+  <div>
+    <table *ngIf="reports" border="1" style="width:100%">
+      <tr>
+        <th>Given Amount</th>
+        <th>Expenditure</th>
+        <th>Difference</th>
+      </tr>
+      <tr align="center">
+        <td>{{amount}}</td>
+        <td>{{sum}}</td>
+        <td>{{amount - sum}}</td>
+      </tr>
+    </table>
+  </div> 
 </ion-content>

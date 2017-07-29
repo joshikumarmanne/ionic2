@@ -10,11 +10,11 @@ import { AngularFireModule } from 'angularfire2';
 
 
 export const firebaseConfig = {
-      apiKey: "AIzaSyCpnF9Nq20yJrqbtpPfLkmNu-_LDB7QVQo",
-    authDomain: "ionic-b5106.firebaseapp.com",
-    databaseURL: "https://ionic-b5106.firebaseio.com",
-    storageBucket: "ionic-b5106.appspot.com",
-    messagingSenderId: "1038947979909"
+    apiKey: "***",
+    authDomain: "***",
+    databaseURL: "***",
+    storageBucket: "***",
+    messagingSenderId: "***"
 };
 
 @NgModule({

@@ -48,5 +48,5 @@
     "cordova-plugin-splashscreen@~4.0.1"
   ],
   "cordovaPlatforms": [],
-  "description": "joshi-room: An Ionic project"
+  "description": "sample-app: An Ionic project"
 }
